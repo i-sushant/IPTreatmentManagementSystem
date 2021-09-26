@@ -1,0 +1,66 @@
+﻿@model IpTreatmentManagementPortal.Models.PatientDetail
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Register Patient</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label" hidden></label>
+                <input asp-for="Id" class="form-control" hidden type="number" />
+                <span asp-validation-for="Id" class="text-danger" hidden></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="Ailment" class="control-label"></label>
+                <input asp-for="Ailment" class="form-control" />
+                <span asp-validation-for="Ailment" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="TreatmentPackageName" class="control-label"></label>
+                <input asp-for="TreatmentPackageName" class="form-control" />
+                <span asp-validation-for="TreatmentPackageName" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label asp-for="TreatmentCommencementDate" class="control-label"></label>
+                <input asp-for="TreatmentCommencementDate" id="EnterDate" class="form-control" />
+                <span asp-validation-for="TreatmentCommencementDate" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+}
+
+
+

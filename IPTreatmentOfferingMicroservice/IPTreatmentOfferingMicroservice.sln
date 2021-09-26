@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31624.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IPTreatmentOfferingMicroservice", "IPTreatmentOfferingMicroservice.csproj", "{4AE8D19A-9AB7-4DEF-9E56-53CC6A1BFBDE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4AE8D19A-9AB7-4DEF-9E56-53CC6A1BFBDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AE8D19A-9AB7-4DEF-9E56-53CC6A1BFBDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AE8D19A-9AB7-4DEF-9E56-53CC6A1BFBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AE8D19A-9AB7-4DEF-9E56-53CC6A1BFBDE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E13443C3-565D-429E-A84A-E230BFE3E07D}
+	EndGlobalSection
+EndGlobal

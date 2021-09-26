@@ -1,0 +1,112 @@
+﻿@model IpTreatmentManagementPortal.ViewModels.PatientViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    var patient = Model.PatientDetail;
+    var treatmentPlan = Model.TreatmentPlan;
+    var claim = Model.Claim;
+        
+}
+
+
+<div>
+    <h4>Patient Detail</h4>
+    <hr />
+    <table class="table table-hover table-sm table-responsive-sm">
+        <tbody>
+            <tr>
+                <td class="font-weight-bold">@Html.DisplayNameFor(model => patient.Name)</td>
+                <td>@Html.DisplayFor(model => patient.Name)</td>
+            </tr>
+            <tr>
+                <td class="">@Html.DisplayNameFor(model => patient.Age)</td>
+                <td>@Html.DisplayFor(model => patient.Age)</td>
+            </tr>
+            <tr>
+                <td class="">@Html.DisplayNameFor(model => patient.Ailment)</td>
+                <td>@Html.DisplayFor(model => patient.Ailment)</td>
+            </tr>
+            <tr>
+                <td class="">@Html.DisplayNameFor(model => patient.TreatmentPackageName)</td>
+                <td>@Html.DisplayFor(model => patient.TreatmentPackageName)</td>
+            </tr>
+            <tr>
+                <td class="">@Html.DisplayNameFor(model => patient.TreatmentCommencementDate)</td>
+                <td>@Html.DisplayFor(model => patient.TreatmentCommencementDate)</td>
+            </tr>
+            <tr>
+                <td class="">@Html.DisplayNameFor(model => patient.TreatmentCompletionStatus)</td>
+                <td>
+                    @{
+                        var status = (patient.TreatmentCompletionStatus ? "Completed" : "In-Progress");
+                    }
+                    @Html.DisplayFor(model => status)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+
+   
+
+        <h4>Treatment Plan Details</h4>
+        <hr />
+        <table class="table table-hover table-sm table-responsive-sm">
+            <tbody>
+                <tr>
+                    <td class="font-weight-bold">@Html.DisplayNameFor(model => treatmentPlan.PackageName)</td>
+                    <td>@Html.DisplayFor(model => treatmentPlan.PackageName)</td>
+                </tr>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => treatmentPlan.TestDetails)</td>
+                    <td>@Html.DisplayFor(model => treatmentPlan.TestDetails)</td>
+                </tr>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => treatmentPlan.Cost)</td>
+                    <td>@Html.DisplayFor(model => treatmentPlan.Cost)</td>
+                </tr>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => treatmentPlan.TreatmentCommencementDate)</td>
+                    <td>@Html.DisplayFor(model => treatmentPlan.TreatmentCommencementDate)</td>
+                </tr>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => treatmentPlan.TreatmentEndDate)</td>
+                    <td>
+                        @Html.DisplayFor(model => treatmentPlan.TreatmentEndDate)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    
+
+    @if (claim != null)
+    {
+
+        <h4>Insurance Claim Details</h4>
+        <hr />
+        <table class="table table-hover table-sm table-responsive-sm">
+            <tbody>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => claim.TreatmentPackageName)</td>
+                    <td>@Html.DisplayFor(model => claim.TreatmentPackageName)</td>
+                </tr>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => claim.InsurerName)</td>
+                    <td>@Html.DisplayFor(model => claim.InsurerName)</td>
+                </tr>
+                <tr>
+                    <td class="">@Html.DisplayNameFor(model => claim.BalanceAmount)</td>
+                    <td>@Html.DisplayFor(model => claim.BalanceAmount)</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
+
+    @if (!patient.TreatmentCompletionStatus && claim != null && claim.BalanceAmount == 0)
+    {
+        @Html.ActionLink("Mark As Complete", "MarkAsComplete", new { id = patient.Id }, new { @class = "btn btn-danger" });
+    }
+
+
+</div>

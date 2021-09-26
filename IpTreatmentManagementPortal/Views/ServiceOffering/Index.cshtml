@@ -1,0 +1,58 @@
+﻿@model IEnumerable<IpTreatmentManagementPortal.Models.IPTreatmentPackage>
+
+@{
+    ViewData["Title"] = "Treatment Packages";
+
+
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<table class="table table-hover">
+    
+    <thead>
+        <tr>
+            <th>
+                Ailment
+            </th>
+            
+            <th>
+                Treatment Package Name
+            </th>
+            <th>
+                Cost
+            </th>
+            <th>
+                Test Details
+            </th>
+            <th>
+                Duration(in weeks)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        var packageDetail = item.PackageDetail;
+    var ailment = ((item.Ailment == 0) ? "Orthopaedics" : "Urology");
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => ailment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => packageDetail.TreatmentPackageName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => packageDetail.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => packageDetail.TestDetails)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => packageDetail.TreatmentDuration)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<IpTreatmentManagementPortal.Models.PatientDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    <h1 class="col col-9">Patients</h1>
+    <div class="col col-3">
+        <a asp-action="Create" class="btn btn-primary">Register New Patient</a>
+    </div>
+</div>
+<hr />
+<br />
+@if(Model.Count() > 0)
+{
+<table class="table table-hover table-responsive">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ailment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentPackageName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentCommencementDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ailment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentPackageName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentCommencementDate)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+} else
+            {
+                <h3>No Patients Found. Add new Patients</h3>
+                <br />
+            }

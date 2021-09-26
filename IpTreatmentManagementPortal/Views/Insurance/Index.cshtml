@@ -1,0 +1,54 @@
+﻿@model IEnumerable<IpTreatmentManagementPortal.Models.InsurerDetail>
+    @{
+    ViewData["Title"] = "Index";
+    }
+
+<div class="row">
+    <h1 class="col col-9">Available Insurers</h1>
+    <div class="col col-3">
+        <a asp-action="SettleClaim" class="btn btn-primary">Settle Insurance Claim</a>
+    </div>
+</div>
+    <hr />
+    <br />
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.InsurerName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InsurerPackageName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.InsuranceAmountLimit)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DisbursementDuration)
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InsurerName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InsurerPackageName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.InsuranceAmountLimit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DisbursementDuration)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+
