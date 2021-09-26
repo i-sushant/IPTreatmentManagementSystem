@@ -3,6 +3,7 @@ using IPTreatmentMicroservice.Controllers;
 using IPTreatmentMicroservice.Models;
 using IPTreatmentMicroservice.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
 using System;
@@ -14,6 +15,7 @@ namespace IPTreatmentMicroservice.Tests
     public class Tests
     {
         private  Mock<ITreatmentPlan> _repositoryStub;
+        private Mock<IConfiguration> _configuration;
         [SetUp]
         public void Setup()
         {
@@ -33,7 +35,7 @@ namespace IPTreatmentMicroservice.Tests
 
             _repositoryStub.Setup(repo => repo.GetAll()).Returns(expectedItems);
 
-            var controller = new PatientController(_repositoryStub.Object);
+            var controller = new PatientController(_repositoryStub.Object, _configuration.Object);
             var response = controller.GetAllDetails();
             var result = response as OkObjectResult;
             result.Value.Should().BeEquivalentTo(expectedItems, options => options.ComparingByMembers<PatientDetail>());
@@ -43,7 +45,7 @@ namespace IPTreatmentMicroservice.Tests
         public void GetAllDetails_WhenPatientsDoesNotExists_ReturnsNotFound()
         {
             _repositoryStub.Setup(repo => repo.GetAll()).Returns((IEnumerable<PatientDetail>)null);
-            var controller = new PatientController(_repositoryStub.Object);
+            var controller = new PatientController(_repositoryStub.Object,  _configuration.Object);
             var response = controller.GetAllDetails();
             response.Should().BeOfType<NotFoundResult>();
             (response as NotFoundResult).StatusCode.Should().Be((int)HttpStatusCode.NotFound);
@@ -56,7 +58,7 @@ namespace IPTreatmentMicroservice.Tests
         {
             var expectedItem = new PatientDetail { Id = 1, Name = "Anu", Age = 45, Ailment = AilmentCategory.Orthopaedics, TreatmentPackageName = "Package 1", TreatmentCommencementDate = DateTime.Now };
             _repositoryStub.Setup(repo => repo.GetPatient(expectedItem.Id)).Returns(expectedItem);
-            var controller = new PatientController(_repositoryStub.Object);
+            var controller = new PatientController(_repositoryStub.Object, _configuration.Object);
             var response = controller.GetPatientById(1);
             var result = response as OkObjectResult;
             result.Value.Should().BeEquivalentTo(expectedItem, options => options.ComparingByMembers<PatientDetail>());
@@ -67,7 +69,7 @@ namespace IPTreatmentMicroservice.Tests
         public void GetPatientById_WhenPatientDoesNotExists_ReturnsNotFound()
         {
             _repositoryStub.Setup(repo => repo.GetPatient(2)).Returns((PatientDetail)null);
-            var controller = new PatientController(_repositoryStub.Object);
+            var controller = new PatientController(_repositoryStub.Object, _configuration.Object);
             var response = controller.GetPatientById(2);
             response.Should().BeOfType<NotFoundResult>();
             (response as NotFoundResult).StatusCode.Should().Be((int)HttpStatusCode.NotFound);
@@ -78,7 +80,7 @@ namespace IPTreatmentMicroservice.Tests
         {
             var expectedItem = new PatientDetail { Id = 1, Name = "Anu", Age = 45, Ailment = AilmentCategory.Orthopaedics, TreatmentPackageName = "Package 1", TreatmentCommencementDate = DateTime.Now };
             _repositoryStub.Setup(repo => repo.GetPatient(expectedItem.Id)).Returns(expectedItem);
-            var controller = new PatientController(_repositoryStub.Object);
+            var controller = new PatientController(_repositoryStub.Object, _configuration.Object);
             var response = controller.MarkTreatmentComplete(1);
             response.Should().BeOfType<OkResult>();
             (response as OkResult).StatusCode.Should().Be((int)HttpStatusCode.OK);
@@ -88,7 +90,7 @@ namespace IPTreatmentMicroservice.Tests
         {
             var expectedItem = new PatientDetail { Id = 1, Name = "Anu", Age = 45, Ailment = AilmentCategory.Orthopaedics, TreatmentPackageName = "Package 1", TreatmentCommencementDate = DateTime.Now };
             _repositoryStub.Setup(repo => repo.GetPatient(2)).Returns((PatientDetail)null);
-            var controller = new PatientController(_repositoryStub.Object);
+            var controller = new PatientController(_repositoryStub.Object, _configuration.Object);
             var response = controller.MarkTreatmentComplete(2);
             response.Should().BeOfType<BadRequestResult>();
             (response as BadRequestResult).StatusCode.Should().Be((int)HttpStatusCode.BadRequest);
@@ -100,7 +102,7 @@ namespace IPTreatmentMicroservice.Tests
             var patient = new PatientDetail { Id = 1, Name = "Anu", Age = 45, Ailment = AilmentCategory.Orthopaedics, TreatmentPackageName = "Package 1", TreatmentCommencementDate = DateTime.Now };
             var timeTable = new TreatmentPlan { Cost = 2000, PackageName = "Package 1", PatientId = 1, SpecialistId = 1, TestDetails = "OPD1,UPD1", TreatmentCommencementDate = DateTime.Today, TreatmentEndDate = DateTime.Today.AddDays(10) };
             _repositoryStub.Setup(repo => repo.GetTimeTable(patient.Id)).Returns(timeTable);
-            var controller = new PatientController(_repositoryStub.Object);
+            var controller = new PatientController(_repositoryStub.Object, _configuration.Object);
             var response = controller.GetTimeTableByPatientId(1);
             var result = response as OkObjectResult;
             result.Value.Should().BeEquivalentTo(timeTable, options => options.ComparingByMembers<TreatmentPlan>());
@@ -109,7 +111,7 @@ namespace IPTreatmentMicroservice.Tests
         public void GetTimeTableByPatientId_WhenPatientDoesNotExists_ReturnsNotFound()
         {
             _repositoryStub.Setup(repo => repo.GetTimeTable(1)).Returns((TreatmentPlan)null);
-            var controller = new PatientController(_repositoryStub.Object);
+            var controller = new PatientController(_repositoryStub.Object, _configuration.Object);
             var response = controller.GetTimeTableByPatientId(1);
             response.Should().BeOfType<NotFoundResult>();
             (response as NotFoundResult).StatusCode.Should().Be((int)HttpStatusCode.NotFound);
