@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: authorizationservice 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authorizationservice
+  template:
+    metadata:
+      labels:
+        app: authorizationservice 
+    spec:
+      containers:
+        - name: authorizationservice 
+          image: ctstrainingacr.azurecr.io/authorizationservice
+          ports:
+          - containerPort: 80
