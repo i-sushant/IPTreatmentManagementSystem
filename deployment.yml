@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-deployment
+spec:
+  selector:
+    matchLabels:
+      app: auth-pod
+  template:
+    metadata:
+      labels:
+        app: auth-pod
+    spec:
+      containers:
+        - name: auth-deployment
+          image: demomicroservicesacr.azurecr.io/authorizationmicroservice
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iptreatmentoffering-deployment
+spec:
+  selector:
+    matchLabels:
+      app: iptreatmentoffering-pod
+  template:
+    metadata:
+      labels:
+        app: iptreatmentoffering-pod
+    spec:
+      containers:
+        - name: iptreatmentoffering-deployment
+          image: demomicroservicesacr.azurecr.io/iptreatmentofferingmicroservice
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iptreatment-deployment
+spec:
+  selector:
+    matchLabels:
+      app: iptreatment-pod
+  template:
+    metadata:
+      labels:
+        app: iptreatment-pod
+    spec:
+      containers:
+        - name: iptreatment-deployment
+          image: demomicroservicesacr.azurecr.io/iptreatmentmicroservice
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: insurance-deployment
+spec:
+  selector:
+    matchLabels:
+      app: insurance-pod
+  template:
+    metadata:
+      labels:
+        app: insurance-pod
+    spec:
+      containers:
+        - name: insurance-deployment
+          image: demomicroservicesacr.azurecr.io/insurancemicroservice
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iptreatmentportal-deployment
+spec:
+  selector:
+    matchLabels:
+      app: iptreatmentportal-pod
+  template:
+    metadata:
+      labels:
+        app: iptreatmentportal-pod
+    spec:
+      containers:
+        - name: iptreatmentportal-deployment
+          image: demomicroservicesacr.azurecr.io/iptreatmentportal
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          ports:
+            - containerPort: 80
